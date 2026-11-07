@@ -1,0 +1,119 @@
+{
+  "created_at": "2026-11-07T19:13:55.077052+00:00",
+  "base_url": "https://crowllm.com/v1",
+  "prompt": "Reply with exactly: benchmark-ok.",
+  "repetitions": 3,
+  "pause_seconds": 1.0,
+  "seed": 0,
+  "models": [
+    "agnes-2.5-flash:free",
+    "agnes-3.0-flash:free",
+    "gemini-3-flash:free"
+  ],
+  "summary": {
+    "agnes-2.5-flash:free": {
+      "attempts": 3,
+      "successes": 3,
+      "failures": 0,
+      "latency_ms": {
+        "median": 928.19,
+        "p95": 1966.87
+      },
+      "completion_tokens_per_second_e2e_median": 20.47
+    },
+    "agnes-3.0-flash:free": {
+      "attempts": 3,
+      "successes": 3,
+      "failures": 0,
+      "latency_ms": {
+        "median": 1062.21,
+        "p95": 1507.12
+      },
+      "completion_tokens_per_second_e2e_median": 2.82
+    },
+    "gemini-3-flash:free": {
+      "attempts": 3,
+      "successes": 3,
+      "failures": 0,
+      "latency_ms": {
+        "median": 3372.32,
+        "p95": 3476.31
+      },
+      "completion_tokens_per_second_e2e_median": 1.19
+    }
+  },
+  "samples": [
+    {
+      "round": 1,
+      "model": "agnes-2.5-flash:free",
+      "ok": true,
+      "latency_ms": 928.19,
+      "completion_tokens": 19,
+      "completion_tokens_per_second_e2e": 20.47
+    },
+    {
+      "round": 1,
+      "model": "gemini-3-flash:free",
+      "ok": true,
+      "latency_ms": 3476.31,
+      "completion_tokens": 4,
+      "completion_tokens_per_second_e2e": 1.15
+    },
+    {
+      "round": 1,
+      "model": "agnes-3.0-flash:free",
+      "ok": true,
+      "latency_ms": 1507.12,
+      "completion_tokens": 3,
+      "completion_tokens_per_second_e2e": 1.99
+    },
+    {
+      "round": 2,
+      "model": "gemini-3-flash:free",
+      "ok": true,
+      "latency_ms": 3372.32,
+      "completion_tokens": 4,
+      "completion_tokens_per_second_e2e": 1.19
+    },
+    {
+      "round": 2,
+      "model": "agnes-3.0-flash:free",
+      "ok": true,
+      "latency_ms": 1062.21,
+      "completion_tokens": 3,
+      "completion_tokens_per_second_e2e": 2.82
+    },
+    {
+      "round": 2,
+      "model": "agnes-2.5-flash:free",
+      "ok": true,
+      "latency_ms": 883.78,
+      "completion_tokens": 19,
+      "completion_tokens_per_second_e2e": 21.5
+    },
+    {
+      "round": 3,
+      "model": "agnes-2.5-flash:free",
+      "ok": true,
+      "latency_ms": 1966.87,
+      "completion_tokens": 19,
+      "completion_tokens_per_second_e2e": 9.66
+    },
+    {
+      "round": 3,
+      "model": "agnes-3.0-flash:free",
+      "ok": true,
+      "latency_ms": 1030.08,
+      "completion_tokens": 3,
+      "completion_tokens_per_second_e2e": 2.91
+    },
+    {
+      "round": 3,
+      "model": "gemini-3-flash:free",
+      "ok": true,
+      "latency_ms": 2935.72,
+      "completion_tokens": 4,
+      "completion_tokens_per_second_e2e": 1.36
+    }
+  ]
+}

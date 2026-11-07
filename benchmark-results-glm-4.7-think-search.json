@@ -1,0 +1,152 @@
+{
+  "created_at": "2026-11-07T19:53:02.668210+00:00",
+  "base_url": "https://crowllm.com/v1",
+  "task": "pipeline",
+  "task_version": 1,
+  "streaming": "SSE",
+  "repetitions": 1,
+  "pause_seconds": 1.0,
+  "seed": 3568159108020552810,
+  "max_tokens": 4096,
+  "reasoning_effort": null,
+  "response_format": "json_object",
+  "models": [
+    "agnes-2.5-flash:free",
+    "glm-4.7-think-search:free",
+    "gemini-3-flash:free"
+  ],
+  "roles": {
+    "analyze": {
+      "model": "agnes-2.5-flash:free",
+      "attempts": 2,
+      "requests": 2,
+      "successes": 2,
+      "failures": 0,
+      "median_latency_ms": 6050.44,
+      "completion_tokens": 722
+    },
+    "plan": {
+      "model": "glm-4.7-think-search:free",
+      "attempts": 2,
+      "requests": 4,
+      "successes": 1,
+      "failures": 1,
+      "median_latency_ms": 44760.28,
+      "completion_tokens": 2660
+    },
+    "implement": {
+      "model": "gemini-3-flash:free",
+      "attempts": 1,
+      "requests": 1,
+      "successes": 1,
+      "failures": 0,
+      "median_latency_ms": 3892.57,
+      "completion_tokens": 100
+    }
+  },
+  "summary": {
+    "cases": 2,
+    "complete_runs": 1,
+    "correct_first_stage_findings": 2,
+    "incorrect_first_stage_findings": 0,
+    "unscored_first_stage_findings": 0
+  },
+  "runs": [
+    {
+      "case": "vulnerable",
+      "expected_finding": true,
+      "finding_correct": true,
+      "stages": [
+        {
+          "stage": "analyze",
+          "model": "agnes-2.5-flash:free",
+          "ok": true,
+          "request_attempts": 1,
+          "latency_ms": 2858.29,
+          "completion_tokens": 222,
+          "streamed_characters": 61,
+          "finish_reason": "stop",
+          "output": {
+            "finding": true,
+            "category": "path_traversal"
+          }
+        },
+        {
+          "stage": "plan",
+          "model": "glm-4.7-think-search:free",
+          "ok": false,
+          "request_attempts": 2,
+          "latency_ms": 47454.02,
+          "completion_tokens": 2581,
+          "streamed_characters": 258,
+          "finish_reason": null,
+          "output": null,
+          "error": "model returned invalid plan JSON"
+        },
+        {
+          "stage": "implement",
+          "model": "gemini-3-flash:free",
+          "ok": false,
+          "skipped": true,
+          "error": "previous pipeline stage failed"
+        }
+      ],
+      "complete": false,
+      "round": 1
+    },
+    {
+      "case": "safe_control",
+      "expected_finding": false,
+      "finding_correct": true,
+      "stages": [
+        {
+          "stage": "analyze",
+          "model": "agnes-2.5-flash:free",
+          "ok": true,
+          "request_attempts": 1,
+          "latency_ms": 9242.59,
+          "completion_tokens": 500,
+          "streamed_characters": 48,
+          "finish_reason": "stop",
+          "output": {
+            "finding": false,
+            "category": ""
+          }
+        },
+        {
+          "stage": "plan",
+          "model": "glm-4.7-think-search:free",
+          "ok": true,
+          "request_attempts": 2,
+          "latency_ms": 44760.28,
+          "completion_tokens": 2660,
+          "streamed_characters": 197,
+          "finish_reason": "stop",
+          "output": {
+            "action": "No remediation required",
+            "constraints": [],
+            "expected behavior": "The function reads the file content without allowing access to paths outside the root directory."
+          }
+        },
+        {
+          "stage": "implement",
+          "model": "gemini-3-flash:free",
+          "ok": true,
+          "request_attempts": 1,
+          "latency_ms": 3892.57,
+          "completion_tokens": 100,
+          "streamed_characters": 429,
+          "finish_reason": "stop",
+          "output": {
+            "fixed_code": "from pathlib import Path\n\ndef read_report(root: Path, filename: str) -> str:\n    base = root.resolve()\n    candidate = (base / filename).resolve()\n    if not candidate.is_relative_to(base):\n        raise ValueError(\"report path is outside the configured directory\")\n    return candidate.read_text(encoding=\"utf-8\")",
+            "explanation": "No remediation required because the finding indicates no bug.",
+            "syntax_valid": true,
+            "patch": ""
+          }
+        }
+      ],
+      "complete": true,
+      "round": 1
+    }
+  ]
+}
