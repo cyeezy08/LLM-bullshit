@@ -504,7 +504,4 @@ disclosure process improvements, and safe local exercises. Never submit
 unpatched vulnerability details or private reports as public benchmark data.
 
 ## License
-
-No license has been selected yet. Until one is added, all rights are reserved;
-please do not assume the code or materials may be reused, modified, or
-redistributed.
+No one lol
